@@ -121,6 +121,11 @@ namespace CNAB240Tester
             };
         }
 
+
+        //Ler
         CNAB240 LerCNAB240(Stream file) => new CNAB240(file);
+
+        //Criar
+
     }
 }
