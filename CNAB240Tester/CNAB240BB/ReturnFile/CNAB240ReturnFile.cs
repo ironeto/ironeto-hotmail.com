@@ -89,9 +89,20 @@ namespace CNAB240BB.ReturnFile
                 _header.Append(FormatField(false, Header.Ocorrencias, 10));
 
 
+                gravaLinha.WriteLine(_header.ToString());
+
+                #endregion
+
+                #region HEADER DE LOTE
+                StringBuilder _headerLote = new StringBuilder();
+
+                //Dados de Controle
+                _headerLote.Append(FormatField(false, Header.Banco, 3, "001"));
+
                 gravaLinha.WriteLine(_header);
 
                 #endregion
+
 
                 gravaLinha.Close();
 
