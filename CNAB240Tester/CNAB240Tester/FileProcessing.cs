@@ -86,6 +86,10 @@ namespace CNAB240Tester
                     CNAB240File.Status = Cnab240Codes.FileSuccessfullyProcessed;
                 }
 
+                //Gera arquivo de retorno
+                CNAB240File.ReturnFile = CreateCNAB240ReturnFile(new CNAB240ReturnFileHeader() { Banco = "1", Lote = "12345", TipoInscricao = "1", Inscricao = "123" , Convenio = "1234567890098765432112345"  }, new List<CNAB240ReturnFileLote>(), new CNAB240ReturnFileTrailerArquivo());
+
+
                 return CNAB240File;
             }
             catch (Exception ex)
@@ -127,6 +131,6 @@ namespace CNAB240Tester
         CNAB240 ReadCNAB240(Stream file) => new CNAB240(file);
 
         //Criar
-        CNAB240ReturnFile CreateCNAB240ReturnFile(CNAB240ReturnFileHeader Header, List<CNAB240ReturnFileLote> Lotes, CNAB240ReturnFileTrailerArquivo Trailer) => new CNAB240ReturnFile(Header,Lotes,Trailer);
+        MemoryStream CreateCNAB240ReturnFile(CNAB240ReturnFileHeader Header, List<CNAB240ReturnFileLote> Lotes, CNAB240ReturnFileTrailerArquivo Trailer) => new CNAB240ReturnFile(Header,Lotes,Trailer).GeraArquivoCNAB240BB();
     }
 }

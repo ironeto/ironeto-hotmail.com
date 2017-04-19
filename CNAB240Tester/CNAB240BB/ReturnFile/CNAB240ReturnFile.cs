@@ -21,6 +21,23 @@ namespace CNAB240BB.ReturnFile
             this.Trailer = Trailer;
         }
 
+        string IfNull(string str)
+        {
+            return (string.IsNullOrEmpty(str) ? string.Empty : str);
+        }
+
+        string FormatField(bool isAlphanumeric, string field, int length)
+        {
+            if(isAlphanumeric)
+            {
+                return IfNull(field).PadRight(length, ' ').Substring(0, length);
+            }
+            else
+            {
+                return IfNull(field).PadLeft(length, '0').Substring(0, length);
+            }
+        }
+
         public MemoryStream GeraArquivoCNAB240BB()
         {
             try
@@ -28,67 +45,22 @@ namespace CNAB240BB.ReturnFile
                 MemoryStream ms = new MemoryStream();
                 StreamWriter gravaLinha = new StreamWriter(ms);
 
-                #region Variáveis
-
-                string _header;
-                string _detalhe1;
-                string _detalhe2;
-                string _detalhe3;
-                string _trailer;
-
-                string n275 = new string(' ', 275);
-                string n025 = new string(' ', 25);
-                string n023 = new string(' ', 23);
-                string n039 = new string('0', 39);
-                string n026 = new string('0', 26);
-                string n090 = new string(' ', 90);
-                string n160 = new string(' ', 160);
-
-                #endregion
 
                 #region HEADER
+                StringBuilder _header = new StringBuilder();
 
-                _header = "02RETORNO01COBRANCA       347700232610        ALLMATECH TECNOLOGIA DA INFORM341BANCO ITAU SA  ";
-                _header += "08010800000BPI00000201207";
-                _header += n275;
-                _header += "000001";
+                //Dados de Controle
+                _header.Append(FormatField(false,Header.Banco,3));
+                _header.Append(FormatField(false, Header.Lote, 4));
+                _header.Append(FormatField(true, Header.CNAB, 9));
+
+                //Dados da Empresa
+                _header.Append(FormatField(false, Header.TipoInscricao, 1));
+                _header.Append(FormatField(false, Header.Inscricao, 14));
+                _header.Append(FormatField(true, Header.Convenio, 20));
+
 
                 gravaLinha.WriteLine(_header);
-
-                #endregion
-
-                #region DETALHE
-
-                _detalhe1 = "10201645738000250097700152310        " + n025 + "00000001            112000000000             ";
-                _detalhe1 += "I06201207000000000100000000            261207000000002000034134770010000000000500" + n025 + " ";
-                _detalhe1 += n039 + "0000000020000" + n026 + "   2112070000      0000000000000POLITEC LTDA                  " + n023 + "               ";
-                _detalhe1 += "AA000002";
-
-                gravaLinha.WriteLine(_detalhe1);
-
-                _detalhe2 = "10201645738000250097700152310        " + n025 + "00000002            112000000000             ";
-                _detalhe2 += "I06201207000000000100000000            261207000000002000034134770010000000000500" + n025 + " ";
-                _detalhe2 += n039 + "0000000020000" + n026 + "   2112070000      0000000000000POLITEC LTDA                  " + n023 + "               ";
-                _detalhe2 += "AA000003";
-
-                gravaLinha.WriteLine(_detalhe2);
-
-                _detalhe3 = "10201645738000250097700152310        " + n025 + "00000003            112000000000             ";
-                _detalhe3 += "I06201207000000000100000000            261207000000002000034134770010000000000500" + n025 + " ";
-                _detalhe3 += n039 + "0000000020000" + n026 + "   2112070000      0000000000000POLITEC LTDA                  " + n023 + "               ";
-                _detalhe3 += "AA000004";
-
-                gravaLinha.WriteLine(_detalhe3);
-
-                #endregion
-
-                #region TRAILER
-
-                _trailer = "9201341          0000000300000000060000                  0000000000000000000000        ";
-                _trailer += n090 + "0000000000000000000000        000010000000300000000060000" + n160 + "000005";
-                ;
-
-                gravaLinha.WriteLine(_trailer);
 
                 #endregion
 

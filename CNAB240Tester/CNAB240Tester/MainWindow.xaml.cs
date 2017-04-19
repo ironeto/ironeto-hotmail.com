@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace CNAB240Tester
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            var ret = new FileProcessing().ImportFile(new StreamReader(@"C:\Teste\CNAB-240 BB.txt").BaseStream);
         }
     }
 }
