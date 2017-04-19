@@ -127,6 +127,6 @@ namespace CNAB240Tester
         CNAB240 ReadCNAB240(Stream file) => new CNAB240(file);
 
         //Criar
-        CNAB240ReturnFile CreateCNAB240ReturnFile() => new CNAB240ReturnFile();
+        CNAB240ReturnFile CreateCNAB240ReturnFile(CNAB240ReturnFileHeader Header, List<CNAB240ReturnFileLote> Lotes, CNAB240ReturnFileTrailerArquivo Trailer) => new CNAB240ReturnFile(Header,Lotes,Trailer);
     }
 }

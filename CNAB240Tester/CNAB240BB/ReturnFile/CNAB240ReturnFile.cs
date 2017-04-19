@@ -11,10 +11,17 @@ namespace CNAB240BB.ReturnFile
     {
 
         public CNAB240ReturnFileHeader Header { get; set; }
-        public List<CNAB240ReturnFileLote> Lote { get; set; }
-        public CNAB240ReturnFileTrailerArquivo TrailerArquivo { get; set; }
+        public List<CNAB240ReturnFileLote> Lotes { get; set; }
+        public CNAB240ReturnFileTrailerArquivo Trailer { get; set; }
 
-        public MemoryStream GeraArquivoCNAB240BB(CNAB240ReturnFileHeader Header, List<CNAB240ReturnFileLote> Lotes, CNAB240ReturnFileTrailerArquivo Trailer)
+        public CNAB240ReturnFile(CNAB240ReturnFileHeader Header, List<CNAB240ReturnFileLote> Lotes, CNAB240ReturnFileTrailerArquivo Trailer)
+        {
+            this.Header = Header;
+            this.Lotes = Lotes;
+            this.Trailer = Trailer;
+        }
+
+        public MemoryStream GeraArquivoCNAB240BB()
         {
             try
             {
