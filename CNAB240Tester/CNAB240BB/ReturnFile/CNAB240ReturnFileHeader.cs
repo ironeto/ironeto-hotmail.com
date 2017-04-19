@@ -13,7 +13,7 @@ namespace CNAB240BB.ReturnFile
     public string Banco { get; set; } //Código do Banco na Compensação 1 3 3 - '001'
     public string Lote { get; set; } //Lote de Serviço 4 7 5 - '0000'
     public string Registro { get; set; } //Registro Header de Arquivo 8 8 1 - '0'
-    public string CNAB { get; set; } //Uso exclusivo FEBRABAN/CNAB 9 17 9 - Brancos
+    public string CNABDadosControle { get; set; } //Uso exclusivo FEBRABAN/CNAB 9 17 9 - Brancos
 
     //Dados da Empresa
     public string TipoInscricao { get; set; } //Tipo de inscrição da empresa 18 18 1 - '1' = CPF, '2' = CGC
@@ -26,18 +26,18 @@ namespace CNAB240BB.ReturnFile
     public string DV { get; set; } //Dígito verificador da Ag/Conta 72 72 1 - '0'
     public string Nome { get; set; } //Nome da Empresa 73 102 30 - Alfanumérico
     public string NomeBanco { get; set; } //Nome do Banco 103 132 30 - 'BANCO DO BRASIL'
-    public string CNAB1 { get; set; }//Uso exclusivo da FEBRABAN 133 142 10 - Brancos
+    public string CNABDadosEmpresa { get; set; }//Uso exclusivo da FEBRABAN 133 142 10 - Brancos
 
     //Dados do arquivo
-    public string Codigo { get; set; }//Código Remessa/Retorno 143 143 1 - '2' = Retorno
-    public string DataGeracao { get; set; }//Data de geração do arquivo 144 151 8 - Numérico(DDMMAAAA)
-    public string HoraGeracao { get; set; }//Hora de geração do arquivo 152 157 6 - Numérico(HHMMSS)
+    public string Codigo { get; set; }//Código Remessa/Retorno 143 143 1 - '2' = Retorno    
+    public DateTime? DataGeracao { get; set; }//Data de geração do arquivo 144 151 8 - Numérico(DDMMAAAA)
+    public string HoraGeracao { get { return DataGeracao.HasValue ? DataGeracao.Value.ToString("HHmmss") : null; } }//Hora de geração do arquivo 152 157 6 - Numérico(HHMMSS)
     public string Sequencia { get; set; }//Nº sequencial do arquivo 158 163 6 - Sequencial numérico
     public string Layout { get; set; }//Nº da versão do layout do arquivo 164 166 3 - '040'
     public string Densidade { get; set; }//Densidade de gravação do arquivo 167 171 5 - '00000'
     public string Reservado1 { get; set; }//Uso reservado do Banco 172 191 20 - Alfanumérico
     public string Reservado2 { get; set; }//Uso reservado da Empresa 192 211 20 - Alfanumérico
-    public string CNAB2 { get; set; }//Uso exclusivo da FEBRABAN 212 222 11 - Brancos
+    public string CNABDadosArquivo { get; set; }//Uso exclusivo da FEBRABAN 212 222 11 - Brancos
     public string Identificacao { get; set; } //Identificação cobrança sem papel 223 225 3 - Brancos
     public string ControleVANS { get; set; }//Uso exclusivo das VANS 226 228 3 - '000'
     public string Servico { get; set; } //Tipo de Serviço 229 230 2 - '00'
