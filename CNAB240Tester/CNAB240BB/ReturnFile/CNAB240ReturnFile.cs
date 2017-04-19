@@ -52,6 +52,7 @@ namespace CNAB240BB.ReturnFile
 
                 int qtdeRegistros_0_1_3_5_9 = 0;
                 StringBuilder lineBuilder = new StringBuilder();
+
                 #region HEADER
                 qtdeRegistros_0_1_3_5_9++;
 
