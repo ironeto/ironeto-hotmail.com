@@ -97,12 +97,12 @@ namespace CNAB240BB.ReturnFile
                 foreach (var hLote in this.Lotes)
                 {
 
-                    lineBuilder = new StringBuilder();
+                    lineBuilder.Clear();
 
                     //Dados de Controle
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Banco, 3, "001"));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Lote, 5, "00000"));
-                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Registro, 1, "0"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Registro, 1, "1"));
 
                     //Dados de Serviço
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.Operacao, 1,"T"));
@@ -137,10 +137,43 @@ namespace CNAB240BB.ReturnFile
 
                     gravaLinha.WriteLine(lineBuilder);
 
+
+                    int NrRegistro = 0;
                     #region Segmento J
                     foreach (var segJ in hLote.SegmentoJ)
                     {
+                        lineBuilder.Clear();
+                        NrRegistro++;
+                        segJ.NrRegistro = NrRegistro;
 
+                        //Dados de Controle
+                        lineBuilder.Append(FormatField(false, segJ.Banco, 3, "001"));
+                        lineBuilder.Append(FormatField(false, segJ.Lote, 5, "00000"));
+                        lineBuilder.Append(FormatField(false, segJ.Registro, 1, "3"));
+                        lineBuilder.Append(FormatField(false, segJ.NrRegistro.ToString(), 5));
+                        lineBuilder.Append(FormatField(true, segJ.Segmento, 1,"J"));
+                        lineBuilder.Append(FormatField(true, segJ.TipoMovto, 1, "0"));
+                        lineBuilder.Append(FormatField(true, segJ.CodMovimento, 2, "00"));
+
+                        //Dados de Titulo
+                        lineBuilder.Append(FormatField(true, segJ.Banco, 3));
+                        lineBuilder.Append(FormatField(true, segJ.CodigoMoedaDadosTitulo, 1));
+                        lineBuilder.Append(FormatField(true, segJ.DV, 1));
+                        lineBuilder.Append(FormatField(true, segJ.Valor.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 14));
+                        lineBuilder.Append(FormatField(false, segJ.CampoLivre, 25));
+                        lineBuilder.Append(FormatField(true, segJ.NomeCedente, 30));
+                        lineBuilder.Append(FormatField(false, segJ.DataVencto.ToString("ddMMyyyy"), 5));
+                        lineBuilder.Append(FormatField(false, segJ.ValorTitulo.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
+                        lineBuilder.Append(FormatField(false, segJ.Desconto.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
+                        lineBuilder.Append(FormatField(false, segJ.Acrescimos.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
+                        lineBuilder.Append(FormatField(false, segJ.DataPagto.ToString("ddMMyyyy"), 8));
+                        lineBuilder.Append(FormatField(false, segJ.ValorPagto.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
+                        lineBuilder.Append(FormatField(false, segJ.QtdadeMoeda.ToString("0.00000", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
+                        lineBuilder.Append(FormatField(true, segJ.Referencia, 20));
+                        lineBuilder.Append(FormatField(true, segJ.NossoNumero, 20));
+                        lineBuilder.Append(FormatField(false, segJ.CodigoMoedaDadosTitulo2, 2, "09"));
+                        lineBuilder.Append(FormatField(true, segJ.CNABDadosTitulo, 6));
+                        lineBuilder.Append(FormatField(true, segJ.Ocorrencias, 10));
                     }
                     #endregion
                 }
