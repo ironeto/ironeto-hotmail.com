@@ -50,9 +50,10 @@ namespace CNAB240BB.ReturnFile
                 MemoryStream ms = new MemoryStream();
                 StreamWriter gravaLinha = new StreamWriter(ms);
 
-
+                int qtdeRegistros_0_1_3_5_9 = 0;
                 StringBuilder lineBuilder = new StringBuilder();
                 #region HEADER
+                qtdeRegistros_0_1_3_5_9++;
 
                 //Dados de Controle
                 lineBuilder.Append(FormatField(false, Header.Banco, 3, "001"));
@@ -88,7 +89,6 @@ namespace CNAB240BB.ReturnFile
                 lineBuilder.Append(FormatField(false, Header.Servico, 2, "00"));
                 lineBuilder.Append(FormatField(false, Header.Ocorrencias, 10));
 
-
                 gravaLinha.WriteLine(lineBuilder.ToString());
 
                 #endregion
@@ -96,6 +96,8 @@ namespace CNAB240BB.ReturnFile
                 #region LOTES
                 foreach (var hLote in this.Lotes)
                 {
+                    #region Header Lote - 1
+                    qtdeRegistros_0_1_3_5_9++;
 
                     lineBuilder.Clear();
 
@@ -136,14 +138,16 @@ namespace CNAB240BB.ReturnFile
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.Ocorrencias, 10));
 
                     gravaLinha.WriteLine(lineBuilder);
+                    #endregion
 
-                    #region Segmento J
+                    #region Segmento J - 3
                     int NrRegistro = 0;
                     hLote.TrailerLote.Valor = 0;
                     hLote.TrailerLote.QtdeMoedas = 0;
 
                     foreach (var segJ in hLote.SegmentoJ)
                     {
+                        qtdeRegistros_0_1_3_5_9++;
                         lineBuilder.Clear();
                         NrRegistro++;
                         segJ.NrRegistro = NrRegistro;
@@ -182,9 +186,11 @@ namespace CNAB240BB.ReturnFile
                         gravaLinha.WriteLine(lineBuilder);
                     }
                     #endregion
-                    #region Trailer Lote
+
+                    #region Trailer Lote - 5
                     lineBuilder.Clear();
-                    hLote.TrailerLote.QtdeRegistros = NrRegistro;
+                    hLote.TrailerLote.QtdeRegistros = NrRegistro + 2;
+                    qtdeRegistros_0_1_3_5_9++;
 
                     //Dados de Controle
                     lineBuilder.Append(FormatField(false, hLote.TrailerLote.Banco, 3, "001"));
@@ -204,6 +210,30 @@ namespace CNAB240BB.ReturnFile
                     #endregion
                 }
                 #endregion
+
+                #region Trailer de Arquivo
+                qtdeRegistros_0_1_3_5_9++;
+                lineBuilder.Clear();
+                Trailer.QtdeLotes = Lotes.Count;
+                Trailer.QtdeRegistros = qtdeRegistros_0_1_3_5_9;
+                Trailer.QtdeConcil = 0;
+
+                //Dados de Controle
+                lineBuilder.Append(FormatField(false, Trailer.Banco, 3, "001"));
+                lineBuilder.Append(FormatField(false, Trailer.Lote, 5, "00000"));
+                lineBuilder.Append(FormatField(false, Trailer.Registro, 1, "9"));
+                lineBuilder.Append(FormatField(true, Trailer.CNABDadosControle, 9));
+
+                //Dados de Arquivo
+                lineBuilder.Append(FormatField(false, Trailer.QtdeLotes.ToString(), 6));
+                lineBuilder.Append(FormatField(false, Trailer.QtdeRegistros.ToString(), 6));
+                lineBuilder.Append(FormatField(false, Trailer.QtdeConcil.ToString(), 6));
+                lineBuilder.Append(FormatField(true, Trailer.CNABDadosArquivo, 205));
+
+                gravaLinha.WriteLine(lineBuilder.ToString());
+
+                #endregion
+
                 gravaLinha.Close();
 
                 return ms;
