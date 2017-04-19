@@ -137,14 +137,18 @@ namespace CNAB240BB.ReturnFile
 
                     gravaLinha.WriteLine(lineBuilder);
 
-
-                    int NrRegistro = 0;
                     #region Segmento J
+                    int NrRegistro = 0;
+                    hLote.TrailerLote.Valor = 0;
+                    hLote.TrailerLote.QtdeMoedas = 0;
+
                     foreach (var segJ in hLote.SegmentoJ)
                     {
                         lineBuilder.Clear();
                         NrRegistro++;
                         segJ.NrRegistro = NrRegistro;
+                        hLote.TrailerLote.Valor += segJ.ValorPagto;
+                        hLote.TrailerLote.QtdeMoedas += segJ.QtdadeMoeda;
 
                         //Dados de Controle
                         lineBuilder.Append(FormatField(false, segJ.Banco, 3, "001"));
@@ -174,13 +178,32 @@ namespace CNAB240BB.ReturnFile
                         lineBuilder.Append(FormatField(false, segJ.CodigoMoedaDadosTitulo2, 2, "09"));
                         lineBuilder.Append(FormatField(true, segJ.CNABDadosTitulo, 6));
                         lineBuilder.Append(FormatField(true, segJ.Ocorrencias, 10));
+
+                        gravaLinha.WriteLine(lineBuilder);
                     }
                     #endregion
+                    #region Trailer Lote
+                    lineBuilder.Clear();
+                    hLote.TrailerLote.QtdeRegistros = NrRegistro;
+
+                    //Dados de Controle
+                    lineBuilder.Append(FormatField(false, hLote.TrailerLote.Banco, 3, "001"));
+                    lineBuilder.Append(FormatField(false, hLote.TrailerLote.Lote, 5, "00000"));
+                    lineBuilder.Append(FormatField(false, hLote.TrailerLote.Registro, 1, "5"));
+                    lineBuilder.Append(FormatField(true, hLote.TrailerLote.CNABDadosControle, 9));
+
+                    //Dados de Arquivo
+                    lineBuilder.Append(FormatField(false, hLote.TrailerLote.QtdeRegistros.ToString(), 6));
+                    lineBuilder.Append(FormatField(false, hLote.TrailerLote.Valor.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 18));
+                    lineBuilder.Append(FormatField(false, hLote.TrailerLote.QtdeMoedas.ToString("0.00000", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 18));
+                    lineBuilder.Append(FormatField(false, hLote.TrailerLote.NrAviso, 6));
+                    lineBuilder.Append(FormatField(true, hLote.TrailerLote.CNABDadosArquivo, 165));
+                    lineBuilder.Append(FormatField(true, hLote.TrailerLote.Ocorrencias, 10));
+
+                    gravaLinha.WriteLine(lineBuilder);
+                    #endregion
                 }
-
                 #endregion
-
-
                 gravaLinha.Close();
 
                 return ms;
