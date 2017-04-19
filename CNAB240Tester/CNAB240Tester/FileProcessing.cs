@@ -1,4 +1,5 @@
 ﻿using CNAB240BB.DeliveryFile;
+using CNAB240BB.ReturnFile;
 using CNAB240Tester.DeliveryFile;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace CNAB240Tester
             var CNAB240File = new FileDto(Cnab240Codes.ProcessingFile);
             try
             {
-                var fileCNABRet = LerCNAB240(File);
+                var fileCNABRet = ReadCNAB240(File);
 
 
                 bool InsufficientFunds = false;
@@ -123,9 +124,9 @@ namespace CNAB240Tester
 
 
         //Ler
-        CNAB240 LerCNAB240(Stream file) => new CNAB240(file);
+        CNAB240 ReadCNAB240(Stream file) => new CNAB240(file);
 
         //Criar
-
+        CNAB240ReturnFile CreateCNAB240ReturnFile() => new CNAB240ReturnFile();
     }
 }

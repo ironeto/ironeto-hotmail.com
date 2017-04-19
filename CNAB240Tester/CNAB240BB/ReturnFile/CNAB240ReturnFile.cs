@@ -9,11 +9,17 @@ namespace CNAB240BB.ReturnFile
 {
     public class CNAB240ReturnFile
     {
-        public void GeraArquivoCNAB240BB(Stream arquivo)
+
+        public CNAB240ReturnFileHeader Header { get; set; }
+        public List<CNAB240ReturnFileLote> Lote { get; set; }
+        public CNAB240ReturnFileTrailerArquivo TrailerArquivo { get; set; }
+
+        public MemoryStream GeraArquivoCNAB240BB(CNAB240ReturnFileHeader Header, List<CNAB240ReturnFileLote> Lotes, CNAB240ReturnFileTrailerArquivo Trailer)
         {
             try
             {
-                StreamWriter gravaLinha = new StreamWriter(arquivo);
+                MemoryStream ms = new MemoryStream();
+                StreamWriter gravaLinha = new StreamWriter(ms);
 
                 #region Variáveis
 
@@ -80,6 +86,8 @@ namespace CNAB240BB.ReturnFile
                 #endregion
 
                 gravaLinha.Close();
+
+                return ms;
 
             }
             catch (Exception ex)

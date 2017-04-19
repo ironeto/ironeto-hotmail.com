@@ -50,6 +50,7 @@
     <Compile Include="ReturnFile\CNAB240ReturnFile.cs" />
     <Compile Include="ReturnFile\CNAB240ReturnFileHeader.cs" />
     <Compile Include="ReturnFile\CNAB240ReturnFileHeaderLote.cs" />
+    <Compile Include="ReturnFile\CNAB240ReturnFileLote.cs" />
     <Compile Include="ReturnFile\CNAB240ReturnFileSegmentoJ.cs" />
     <Compile Include="ReturnFile\CNAB240ReturnFileTrailerArquivo.cs" />
     <Compile Include="ReturnFile\CNAB240ReturnFileTrailerLote.cs" />
