@@ -51,55 +51,99 @@ namespace CNAB240BB.ReturnFile
                 StreamWriter gravaLinha = new StreamWriter(ms);
 
 
+                StringBuilder lineBuilder = new StringBuilder();
                 #region HEADER
-                StringBuilder _header = new StringBuilder();
 
                 //Dados de Controle
-                _header.Append(FormatField(false, Header.Banco, 3, "001"));
-                _header.Append(FormatField(false, Header.Lote, 4, "0000"));
-                _header.Append(FormatField(false, Header.Registro, 1, "0"));
-                _header.Append(FormatField(true, Header.CNABDadosControle, 9));
+                lineBuilder.Append(FormatField(false, Header.Banco, 3, "001"));
+                lineBuilder.Append(FormatField(false, Header.Lote, 5, "00000"));
+                lineBuilder.Append(FormatField(false, Header.Registro, 1, "0"));
+                lineBuilder.Append(FormatField(true, Header.CNABDadosControle, 9));
 
                 //Dados da Empresa
-                _header.Append(FormatField(false, Header.TipoInscricao, 1, "2"));
-                _header.Append(FormatField(false, Header.Inscricao, 14));
-                _header.Append(FormatField(true, Header.Convenio, 20));
+                lineBuilder.Append(FormatField(false, Header.TipoInscricao, 1, "2"));
+                lineBuilder.Append(FormatField(false, Header.Inscricao, 14));
+                lineBuilder.Append(FormatField(true, Header.Convenio, 20));
 
-                _header.Append(FormatField(false, Header.CodAgencia, 5));
-                _header.Append(FormatField(true, Header.DVAgencia, 1));
-                _header.Append(FormatField(false, Header.NumeroConta, 12));
-                _header.Append(FormatField(true, Header.DVConta, 1));
-                _header.Append(FormatField(false, Header.DV, 1 , "0"));
-                _header.Append(FormatField(true, Header.Nome, 30));
-                _header.Append(FormatField(true, Header.NomeBanco, 30, "OPA!"));
-                _header.Append(FormatField(true, Header.CNABDadosEmpresa, 10));
+                lineBuilder.Append(FormatField(false, Header.CodAgencia, 5));
+                lineBuilder.Append(FormatField(true, Header.DVAgencia, 1));
+                lineBuilder.Append(FormatField(false, Header.NumeroConta, 12));
+                lineBuilder.Append(FormatField(true, Header.DVConta, 1));
+                lineBuilder.Append(FormatField(false, Header.DV, 1 , "0"));
+                lineBuilder.Append(FormatField(true, Header.Nome, 30));
+                lineBuilder.Append(FormatField(true, Header.NomeBanco, 30, "OPA!"));
+                lineBuilder.Append(FormatField(true, Header.CNABDadosEmpresa, 10));
 
                 //Dados do arquivo
-                _header.Append(FormatField(false, Header.Codigo, 1, "2"));
-                _header.Append(FormatField(true, Header.DataGeracao.HasValue ? DateTime.Now.ToString("ddMMyyyy") : Header.DataGeracao.Value.ToString("ddMMyyyy"), 20));
-                _header.Append(FormatField(true, Header.DataGeracao.HasValue ? Header.HoraGeracao : DateTime.Now.ToString("HHmmss"), 20));
-                _header.Append(FormatField(false, Header.Sequencia, 6));
-                _header.Append(FormatField(true, Header.Densidade, 5, "00000"));
-                _header.Append(FormatField(true, Header.Reservado1, 20));
-                _header.Append(FormatField(true, Header.Reservado2, 20));
-                _header.Append(FormatField(true, Header.CNABDadosArquivo, 11));
-                _header.Append(FormatField(true, Header.Identificacao, 3));
-                _header.Append(FormatField(false, Header.ControleVANS, 3, "000"));
-                _header.Append(FormatField(false, Header.Servico, 2, "00"));
-                _header.Append(FormatField(false, Header.Ocorrencias, 10));
+                lineBuilder.Append(FormatField(false, Header.Codigo, 1, "2"));
+                lineBuilder.Append(FormatField(true, Header.DataGeracao.HasValue ? DateTime.Now.ToString("ddMMyyyy") : Header.DataGeracao.Value.ToString("ddMMyyyy"), 20));
+                lineBuilder.Append(FormatField(true, Header.DataGeracao.HasValue ? Header.HoraGeracao : DateTime.Now.ToString("HHmmss"), 20));
+                lineBuilder.Append(FormatField(false, Header.Sequencia, 6));
+                lineBuilder.Append(FormatField(true, Header.Densidade, 5, "00000"));
+                lineBuilder.Append(FormatField(true, Header.Reservado1, 20));
+                lineBuilder.Append(FormatField(true, Header.Reservado2, 20));
+                lineBuilder.Append(FormatField(true, Header.CNABDadosArquivo, 11));
+                lineBuilder.Append(FormatField(true, Header.Identificacao, 3));
+                lineBuilder.Append(FormatField(false, Header.ControleVANS, 3, "000"));
+                lineBuilder.Append(FormatField(false, Header.Servico, 2, "00"));
+                lineBuilder.Append(FormatField(false, Header.Ocorrencias, 10));
 
 
-                gravaLinha.WriteLine(_header.ToString());
+                gravaLinha.WriteLine(lineBuilder.ToString());
 
                 #endregion
 
-                #region HEADER DE LOTE
-                StringBuilder _headerLote = new StringBuilder();
+                #region LOTES
+                foreach (var hLote in this.Lotes)
+                {
 
-                //Dados de Controle
-                _headerLote.Append(FormatField(false, Header.Banco, 3, "001"));
+                    lineBuilder = new StringBuilder();
 
-                gravaLinha.WriteLine(_header);
+                    //Dados de Controle
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Banco, 3, "001"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Lote, 5, "00000"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Registro, 1, "0"));
+
+                    //Dados de Serviço
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Operacao, 1,"T"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.TipoInscricao, 2, "98"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.FormaLancam, 2, "30"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.LayoutDoLote, 3, "030"));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.CNABDadosServico, 1));
+
+                    //Dados da Empresa
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.TipoInscricao, 1, "2"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Inscricao, 14));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Convenio, 20));
+
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.CodAgencia, 5));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.DVAgencia, 1));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.NumeroConta, 12));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.DVConta, 1));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.DV, 1, "0"));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Nome, 30));
+
+
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Informacao, 40));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Logradouro, 40));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.NumeroLogradouro, 5));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.ComplementoLogradouro, 18));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Cidade, 20));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.CEP, 5));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.ComplemCEP, 3));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Estado, 2));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.CNABDadosEmpresa, 8));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Ocorrencias, 10));
+
+                    gravaLinha.WriteLine(lineBuilder);
+
+                    #region Segmento J
+                    foreach (var segJ in hLote.SegmentoJ)
+                    {
+
+                    }
+                    #endregion
+                }
 
                 #endregion
 
