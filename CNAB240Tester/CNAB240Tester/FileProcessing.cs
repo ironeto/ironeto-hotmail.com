@@ -12,6 +12,101 @@ namespace CNAB240Tester
 {
     public class FileProcessing
     {
+        void FillReturnFile(FileDto CNAB240File)
+        {
+            //Fill Header
+            var header = new CNAB240ReturnFileHeader()
+            {
+                Inscricao = "123123123",
+                Convenio = "222222222",
+                CodAgencia = "1234",
+                DVAgencia = "1",
+                NumeroConta = "123123123",
+                DVConta = "2",
+                Nome = "Alvaro Augusto de Marco Neto ME",
+                Sequencia = "1",
+            };
+
+            //Fill Lote
+            int Lote = 1;
+            var lstLotes = new List<CNAB240ReturnFileLote>();
+            var retFileLote = new CNAB240ReturnFileLote()
+            {
+                //Fill Header Lote
+                HeaderLote = new CNAB240ReturnFileHeaderLote()
+                {
+                    Lote = Lote.ToString(),
+                    Inscricao = "123123",
+                    Convenio = "123123",
+                    CodAgencia = "123",
+                    DVAgencia = "3",
+                    NumeroConta = "123123",
+                    DVConta = "4",
+                    Nome = "Alvaro Augusto de Marco Neto ME",
+                    Logradouro = "Rua Rudi Schaly",
+                    NumeroLogradouro = "146",
+                    ComplementoLogradouro = "",
+                    Cidade = "São Paulo",
+                    CEP = "05101",
+                    ComplemCEP = "060",
+                    Estado = "SP",
+
+                },
+                SegmentoJ = new List<CNAB240ReturnFileSegmentoJ>(),
+
+                //Fill Trailer Lote
+                TrailerLote = new CNAB240ReturnFileTrailerLote()
+                {
+                    Lote = Lote.ToString(),
+                }
+            };
+
+            //Iteração dos depósitos
+            foreach (var depositDetail in CNAB240File.DepositDetails)
+            {
+                //Fill Segmento J
+                retFileLote.SegmentoJ.Add(new CNAB240ReturnFileSegmentoJ()
+                {
+                    Lote = Lote.ToString(),
+                    Banco = "123",
+                    CodigoMoedaDadosTitulo = "1",
+                    DV = "1",
+                    Valor = 678.90M,
+                    NomeCedente = "Alvaro Augusto de Marco Neto",
+                    DataVencto = DateTime.Now,
+                    ValorTitulo = 678.90M,
+                    Desconto = 0,
+                    Acrescimos = 0,
+                    DataPagto = DateTime.Now,
+                    ValorPagto = 678.90M,
+                    Referencia = "123123",
+                    NossoNumero = "1234567890",
+                });
+            }
+            lstLotes.Add(retFileLote);
+
+            //Fill Trailer
+            var Trailer = new CNAB240ReturnFileTrailerArquivo()
+            {
+                Lote = Lote.ToString(),
+                Banco = "123",                
+            };
+
+            CNAB240File.ReturnFile = CreateCNAB240ReturnFile(header,lstLotes, Trailer);
+
+
+            SaveMemoryStream(CNAB240File.ReturnFile, @"C:\Teste\ArquivoRetorno.txt");
+
+        }
+
+        public static void SaveMemoryStream(MemoryStream ms, string FileName)
+        {
+            FileStream outStream = File.OpenWrite(FileName);
+            ms.WriteTo(outStream);
+            outStream.Flush();
+            outStream.Close();
+        }
+
         public FileDto ImportFile(Stream File)
         {
             var CNAB240File = new FileDto(Cnab240Codes.ProcessingFile);
@@ -87,8 +182,7 @@ namespace CNAB240Tester
                 }
 
                 //Gera arquivo de retorno
-                CNAB240File.ReturnFile = CreateCNAB240ReturnFile(new CNAB240ReturnFileHeader() { Banco = "1", Lote = "12345", TipoInscricao = "1", Inscricao = "123" , Convenio = "1234567890098765432112345"  }, new List<CNAB240ReturnFileLote>(), new CNAB240ReturnFileTrailerArquivo());
-
+                FillReturnFile(CNAB240File);
 
                 return CNAB240File;
             }

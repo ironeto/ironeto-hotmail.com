@@ -78,8 +78,8 @@ namespace CNAB240BB.ReturnFile
 
                 //Dados do arquivo
                 lineBuilder.Append(FormatField(false, Header.Codigo, 1, "2"));
-                lineBuilder.Append(FormatField(true, Header.DataGeracao.HasValue ? DateTime.Now.ToString("ddMMyyyy") : Header.DataGeracao.Value.ToString("ddMMyyyy"), 20));
-                lineBuilder.Append(FormatField(true, Header.DataGeracao.HasValue ? Header.HoraGeracao : DateTime.Now.ToString("HHmmss"), 20));
+                lineBuilder.Append(FormatField(true, !Header.DataGeracao.HasValue ? DateTime.Now.ToString("ddMMyyyy") : Header.DataGeracao.Value.ToString("ddMMyyyy"), 20));
+                lineBuilder.Append(FormatField(true, !Header.DataGeracao.HasValue ? Header.HoraGeracao : DateTime.Now.ToString("HHmmss"), 20));
                 lineBuilder.Append(FormatField(false, Header.Sequencia, 6));
                 lineBuilder.Append(FormatField(true, Header.Densidade, 5, "00000"));
                 lineBuilder.Append(FormatField(true, Header.Reservado1, 20));
@@ -234,9 +234,6 @@ namespace CNAB240BB.ReturnFile
                 gravaLinha.WriteLine(lineBuilder.ToString());
 
                 #endregion
-
-                gravaLinha.Close();
-
                 return ms;
 
             }
