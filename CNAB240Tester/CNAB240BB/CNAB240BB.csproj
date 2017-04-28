@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeliveryFile\CNAB240.cs" />
+    <Compile Include="DeliveryFile\Cnab240Code.cs" />
     <Compile Include="DeliveryFile\Cnab240Codes.cs" />
     <Compile Include="DeliveryFile\CNAB240Detail.cs" />
+    <Compile Include="DeliveryFile\Cnab240EnumCodes.cs" />
     <Compile Include="DeliveryFile\CNAB240Header.cs" />
     <Compile Include="DeliveryFile\CNAB240SegmentoA.cs" />
     <Compile Include="DeliveryFile\CNAB240SegmentoB.cs" />

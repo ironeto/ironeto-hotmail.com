@@ -25,6 +25,7 @@ namespace CNAB240Tester
                 DVConta = "2",
                 Nome = "Alvaro Augusto de Marco Neto ME",
                 Sequencia = "1",
+                Ocorrencias = CNAB240File.Status.Occurrence,
             };
 
             //Fill Lote
@@ -50,7 +51,7 @@ namespace CNAB240Tester
                     CEP = "05101",
                     ComplemCEP = "060",
                     Estado = "SP",
-
+                    Ocorrencias = CNAB240File.Status.Occurrence,
                 },
                 SegmentoJ = new List<CNAB240ReturnFileSegmentoJ>(),
 
@@ -81,6 +82,7 @@ namespace CNAB240Tester
                     ValorPagto = 678.90M,
                     Referencia = "123123",
                     NossoNumero = "1234567890",
+                    Ocorrencias = depositDetail.Status.Occurrence,
                 });
             }
             lstLotes.Add(retFileLote);
@@ -89,7 +91,7 @@ namespace CNAB240Tester
             var Trailer = new CNAB240ReturnFileTrailerArquivo()
             {
                 Lote = Lote.ToString(),
-                Banco = "123",                
+                Banco = "123",
             };
 
             CNAB240File.ReturnFile = CreateCNAB240ReturnFile(header,lstLotes, Trailer);
@@ -172,10 +174,6 @@ namespace CNAB240Tester
                 {
                     CNAB240File.Status = Cnab240Codes.InsufficientFunds;
                 }
-                else if (FileProcessedWithErrors)
-                {
-                    CNAB240File.Status = Cnab240Codes.FileProcessedWithErrors;
-                }
                 else
                 {
                     CNAB240File.Status = Cnab240Codes.FileSuccessfullyProcessed;
@@ -195,7 +193,7 @@ namespace CNAB240Tester
                         CNAB240File.StatusDescription = (ex.InnerException != null ? ex.InnerException.Message : string.Empty);
                         break;
                     default:
-                        CNAB240File.Status = Cnab240Codes.ErrorProcessingFile;
+                        CNAB240File.Status = Cnab240Codes.InvalidFileFormat;
                         CNAB240File.StatusDescription = (ex.InnerException != null ? string.Format("{0} {1}", ex.Message, ex.InnerException.Message) : ex.Message);
                         break;
                 }
@@ -203,7 +201,7 @@ namespace CNAB240Tester
             }
         }
 
-        DepositDto createDepositDTO(string CPF, string Nome, DateTime Date, decimal Value, Cnab240Codes Status)
+        DepositDto createDepositDTO(string CPF, string Nome, DateTime Date, decimal Value, Cnab240Code Status)
         {
             return new DepositDto()
             {

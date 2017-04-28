@@ -16,9 +16,8 @@ namespace CNAB240Tester
         public DateTime Date { get; set; }
         public decimal Tax { get; set; }
         public string Type { get; set; }
-        public Cnab240Codes Status { get; set; }
+        public Cnab240Code Status { get; set; }
         public int CompanyId { get; set; }
-
         public string Nome { get; set; }
         public string ChaveBuscaUsuario { get; set; }
     }

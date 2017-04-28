@@ -89,8 +89,8 @@ namespace CNAB240BB.ReturnFile
                 lineBuilder.Append(FormatField(false, Header.ControleVANS, 3, "000"));
                 lineBuilder.Append(FormatField(false, Header.Servico, 2, "00"));
                 lineBuilder.Append(FormatField(false, Header.Ocorrencias, 10));
-
-                gravaLinha.WriteLine(lineBuilder.ToString());
+                lineBuilder.AppendLine();
+                //gravaLinha.WriteLine(lineBuilder.ToString());
 
                 #endregion
 
@@ -100,7 +100,7 @@ namespace CNAB240BB.ReturnFile
                     #region Header Lote - 1
                     qtdeRegistros_0_1_3_5_9++;
 
-                    lineBuilder.Clear();
+                    //lineBuilder.Clear();
 
                     //Dados de Controle
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Banco, 3, "001"));
@@ -137,8 +137,8 @@ namespace CNAB240BB.ReturnFile
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.Estado, 2));
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.CNABDadosEmpresa, 8));
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.Ocorrencias, 10));
-
-                    gravaLinha.WriteLine(lineBuilder);
+                    lineBuilder.AppendLine();
+                    //gravaLinha.WriteLine(lineBuilder);
                     #endregion
 
                     #region Segmento J - 3
@@ -149,7 +149,7 @@ namespace CNAB240BB.ReturnFile
                     foreach (var segJ in hLote.SegmentoJ)
                     {
                         qtdeRegistros_0_1_3_5_9++;
-                        lineBuilder.Clear();
+                        //lineBuilder.Clear();
                         NrRegistro++;
                         segJ.NrRegistro = NrRegistro;
                         hLote.TrailerLote.Valor += segJ.ValorPagto;
@@ -183,13 +183,13 @@ namespace CNAB240BB.ReturnFile
                         lineBuilder.Append(FormatField(false, segJ.CodigoMoedaDadosTitulo2, 2, "09"));
                         lineBuilder.Append(FormatField(true, segJ.CNABDadosTitulo, 6));
                         lineBuilder.Append(FormatField(true, segJ.Ocorrencias, 10));
-
-                        gravaLinha.WriteLine(lineBuilder);
+                        lineBuilder.AppendLine();
+                        //gravaLinha.WriteLine(lineBuilder);
                     }
                     #endregion
 
                     #region Trailer Lote - 5
-                    lineBuilder.Clear();
+                    //lineBuilder.Clear();
                     hLote.TrailerLote.QtdeRegistros = NrRegistro + 2;
                     qtdeRegistros_0_1_3_5_9++;
 
@@ -206,15 +206,15 @@ namespace CNAB240BB.ReturnFile
                     lineBuilder.Append(FormatField(false, hLote.TrailerLote.NrAviso, 6));
                     lineBuilder.Append(FormatField(true, hLote.TrailerLote.CNABDadosArquivo, 165));
                     lineBuilder.Append(FormatField(true, hLote.TrailerLote.Ocorrencias, 10));
-
-                    gravaLinha.WriteLine(lineBuilder);
+                    lineBuilder.AppendLine();
+                    //gravaLinha.WriteLine(lineBuilder);
                     #endregion
                 }
                 #endregion
 
                 #region Trailer de Arquivo
                 qtdeRegistros_0_1_3_5_9++;
-                lineBuilder.Clear();
+                //lineBuilder.Clear();
                 Trailer.QtdeLotes = Lotes.Count;
                 Trailer.QtdeRegistros = qtdeRegistros_0_1_3_5_9;
                 Trailer.QtdeConcil = 0;
@@ -230,12 +230,11 @@ namespace CNAB240BB.ReturnFile
                 lineBuilder.Append(FormatField(false, Trailer.QtdeRegistros.ToString(), 6));
                 lineBuilder.Append(FormatField(false, Trailer.QtdeConcil.ToString(), 6));
                 lineBuilder.Append(FormatField(true, Trailer.CNABDadosArquivo, 205));
-
-                gravaLinha.WriteLine(lineBuilder.ToString());
+                //gravaLinha.WriteLine(lineBuilder.ToString());
 
                 #endregion
+                gravaLinha.WriteLine(lineBuilder.ToString());
                 return ms;
-
             }
             catch (Exception ex)
             {
