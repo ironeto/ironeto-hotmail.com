@@ -105,7 +105,7 @@ namespace CNAB240BB.ReturnFile
 
                     //Dados de Controle
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Banco, 3, "001"));
-                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Lote, 5, "00000"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Lote, 4, "0000"));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Registro, 1, "1"));
 
                     //Dados de Serviço
@@ -158,7 +158,7 @@ namespace CNAB240BB.ReturnFile
 
                         //Dados de Controle
                         lineBuilder.Append(FormatField(false, segJ.Banco, 3, "001"));
-                        lineBuilder.Append(FormatField(false, segJ.Lote, 5, "00000"));
+                        lineBuilder.Append(FormatField(false, segJ.Lote, 4, "0000"));
                         lineBuilder.Append(FormatField(false, segJ.Registro, 1, "3"));
                         lineBuilder.Append(FormatField(false, segJ.NrRegistro.ToString(), 5));
                         lineBuilder.Append(FormatField(true, segJ.Segmento, 1,"J"));
@@ -172,7 +172,7 @@ namespace CNAB240BB.ReturnFile
                         lineBuilder.Append(FormatField(true, segJ.Valor.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 14));
                         lineBuilder.Append(FormatField(false, segJ.CampoLivre, 25));
                         lineBuilder.Append(FormatField(true, segJ.NomeCedente, 30));
-                        lineBuilder.Append(FormatField(false, segJ.DataVencto.ToString("ddMMyyyy"), 5));
+                        lineBuilder.Append(FormatField(false, segJ.DataVencto.ToString("ddMMyyyy"), 8));
                         lineBuilder.Append(FormatField(false, segJ.ValorTitulo.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
                         lineBuilder.Append(FormatField(false, segJ.Desconto.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
                         lineBuilder.Append(FormatField(false, segJ.Acrescimos.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
@@ -196,7 +196,7 @@ namespace CNAB240BB.ReturnFile
 
                     //Dados de Controle
                     lineBuilder.Append(FormatField(false, hLote.TrailerLote.Banco, 3, "001"));
-                    lineBuilder.Append(FormatField(false, hLote.TrailerLote.Lote, 5, "00000"));
+                    lineBuilder.Append(FormatField(false, hLote.TrailerLote.Lote, 4, "0000"));
                     lineBuilder.Append(FormatField(false, hLote.TrailerLote.Registro, 1, "5"));
                     lineBuilder.Append(FormatField(true, hLote.TrailerLote.CNABDadosControle, 9));
 
@@ -222,7 +222,7 @@ namespace CNAB240BB.ReturnFile
 
                 //Dados de Controle
                 lineBuilder.Append(FormatField(false, Trailer.Banco, 3, "001"));
-                lineBuilder.Append(FormatField(false, Trailer.Lote, 5, "00000"));
+                lineBuilder.Append(FormatField(false, Trailer.Lote, 4, "0000"));
                 lineBuilder.Append(FormatField(false, Trailer.Registro, 1, "9"));
                 lineBuilder.Append(FormatField(true, Trailer.CNABDadosControle, 9));
 

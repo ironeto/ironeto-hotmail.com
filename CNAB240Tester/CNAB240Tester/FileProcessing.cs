@@ -25,8 +25,7 @@ namespace CNAB240Tester
                 DVConta = "2",
                 Nome = "Alvaro Augusto de Marco Neto ME",
                 Sequencia = "1",
-                //Ocorrencias = CNAB240File.Status.Occurrence,
-                Ocorrencias = "01",
+                Ocorrencias = CNAB240File.Status.Occurrence,
             };
 
             //Fill Lote
@@ -73,14 +72,15 @@ namespace CNAB240Tester
                     Banco = "123",
                     CodigoMoedaDadosTitulo = "1",
                     DV = "1",
-                    Valor = 678.90M,
-                    NomeCedente = "Alvaro Augusto de Marco Neto",
-                    DataVencto = DateTime.Now,
-                    ValorTitulo = 678.90M,
+                    Valor = depositDetail.Value,
+                    CampoLivre = depositDetail.ChaveBuscaUsuario,
+                    NomeCedente = depositDetail.Nome,
+                    DataVencto = depositDetail.Date,                    
+                    ValorTitulo = depositDetail.Value,                    
                     Desconto = 0,
                     Acrescimos = 0,
-                    DataPagto = DateTime.Now,
-                    ValorPagto = 678.90M,
+                    DataPagto = depositDetail.Date,
+                    ValorPagto = depositDetail.Value,
                     Referencia = "123123",
                     NossoNumero = "1234567890",
                     Ocorrencias = depositDetail.Status.Occurrence,
@@ -96,8 +96,7 @@ namespace CNAB240Tester
             };
 
             CNAB240File.ReturnFile = CreateCNAB240ReturnFile(header,lstLotes, Trailer);
-
-
+            
             SaveMemoryStream(CNAB240File.ReturnFile, @"C:\Teste\ArquivoRetorno.txt");
 
         }
@@ -108,6 +107,8 @@ namespace CNAB240Tester
             ms.WriteTo(outStream);
             outStream.Flush();
             outStream.Close();
+
+            System.Diagnostics.Process.Start(FileName);
         }
 
         public FileDto ImportFile(Stream File)
