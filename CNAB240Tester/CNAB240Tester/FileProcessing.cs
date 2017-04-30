@@ -111,17 +111,15 @@ namespace CNAB240Tester
             System.Diagnostics.Process.Start(FileName);
         }
 
-        public FileDto ImportFile(Stream File)
+        public FileDto ImportFile(Stream File, decimal SALDO)
         {
             var CNAB240File = new FileDto(Cnab240Codes.ProcessingFile);
             try
             {
                 var fileCNABRet = ReadCNAB240(File);
 
-
                 bool InsufficientFunds = false;
-                bool FileProcessedWithErrors = false;
-                decimal saldo = 10000;
+                decimal saldo = SALDO;
 
                 //Caso o header seja nulo, o arquivo importado é inválido
                 if (fileCNABRet.Header == null || fileCNABRet.Details == null || fileCNABRet.Details.Count <= 0)

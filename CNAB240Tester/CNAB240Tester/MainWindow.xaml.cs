@@ -28,7 +28,7 @@ namespace CNAB240Tester
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            var ret = new FileProcessing().ImportFile(new StreamReader(@"C:\Teste\CNAB-240 BB.txt").BaseStream);
+            var ret = new FileProcessing().ImportFile(new StreamReader(@"C:\Teste\CNAB-240 BB.txt").BaseStream, Convert.ToDecimal(tbxSaldo.Text));
         }
     }
 }
