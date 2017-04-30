@@ -25,7 +25,8 @@ namespace CNAB240Tester
                 DVConta = "2",
                 Nome = "Alvaro Augusto de Marco Neto ME",
                 Sequencia = "1",
-                Ocorrencias = CNAB240File.Status.Occurrence,
+                //Ocorrencias = CNAB240File.Status.Occurrence,
+                Ocorrencias = "01",
             };
 
             //Fill Lote

@@ -58,7 +58,7 @@ namespace CNAB240BB.ReturnFile
 
                 //Dados de Controle
                 lineBuilder.Append(FormatField(false, Header.Banco, 3, "001"));
-                lineBuilder.Append(FormatField(false, Header.Lote, 5, "00000"));
+                lineBuilder.Append(FormatField(false, Header.Lote, 4, "0000"));
                 lineBuilder.Append(FormatField(false, Header.Registro, 1, "0"));
                 lineBuilder.Append(FormatField(true, Header.CNABDadosControle, 9));
 
@@ -78,9 +78,10 @@ namespace CNAB240BB.ReturnFile
 
                 //Dados do arquivo
                 lineBuilder.Append(FormatField(false, Header.Codigo, 1, "2"));
-                lineBuilder.Append(FormatField(true, !Header.DataGeracao.HasValue ? DateTime.Now.ToString("ddMMyyyy") : Header.DataGeracao.Value.ToString("ddMMyyyy"), 20));
-                lineBuilder.Append(FormatField(true, !Header.DataGeracao.HasValue ? Header.HoraGeracao : DateTime.Now.ToString("HHmmss"), 20));
+                lineBuilder.Append(FormatField(true, !Header.DataGeracao.HasValue ? DateTime.Now.ToString("ddMMyyyy") : Header.DataGeracao.Value.ToString("ddMMyyyy"), 8));
+                lineBuilder.Append(FormatField(true, !Header.DataGeracao.HasValue ? DateTime.Now.ToString("HHmmss") : Header.HoraGeracao, 6));
                 lineBuilder.Append(FormatField(false, Header.Sequencia, 6));
+                lineBuilder.Append(FormatField(false, Header.Layout, 3, "040"));
                 lineBuilder.Append(FormatField(true, Header.Densidade, 5, "00000"));
                 lineBuilder.Append(FormatField(true, Header.Reservado1, 20));
                 lineBuilder.Append(FormatField(true, Header.Reservado2, 20));
