@@ -97,7 +97,7 @@ namespace CNAB240Tester
 
             CNAB240File.ReturnFile = CreateCNAB240ReturnFile(header,lstLotes, Trailer);
             
-            SaveMemoryStream(CNAB240File.ReturnFile, @"C:\Teste\ArquivoRetorno.txt");
+            SaveMemoryStream(CNAB240File.ReturnFile, Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "ArquivoRetorno.txt"));
 
         }
 
