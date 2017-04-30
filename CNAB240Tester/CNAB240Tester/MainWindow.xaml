@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CNAB240Tester"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid Margin="0,0,253,180">
-        <Button x:Name="button" Content="Importar arquivo" HorizontalAlignment="Left" Margin="28,57,0,0" VerticalAlignment="Top" Width="193" Height="40" Click="button_Click"/>
-        <TextBox x:Name="tbxSaldo" HorizontalAlignment="Left" Height="23" Margin="72,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
+        Title="MainWindow" Height="165.79" Width="442.105">
+    <Grid Margin="0,0,2,0">
+        <Button x:Name="button" Content="Importar arquivo" HorizontalAlignment="Left" Margin="28,74,0,0" VerticalAlignment="Top" Width="374" Height="40" Click="button_Click"/>
+        <TextBox x:Name="tbxSaldo" HorizontalAlignment="Left" Height="23" Margin="72,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Text="100000,60"/>
         <Label x:Name="label" Content="Saldo:" HorizontalAlignment="Left" Margin="28,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.198,0.213"/>
+        <Label x:Name="label_Copy" Content="Para casas decimais, use vírgula" HorizontalAlignment="Left" Margin="226,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.198,0.213"/>
 
     </Grid>
 </Window>
