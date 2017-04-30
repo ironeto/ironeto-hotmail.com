@@ -234,6 +234,8 @@ namespace CNAB240BB.ReturnFile
 
                 #endregion
                 gravaLinha.WriteLine(lineBuilder.ToString());
+                gravaLinha.Flush();
+                
                 return ms;
             }
             catch (Exception ex)
