@@ -72,7 +72,11 @@ namespace CNAB240Tester
                     Banco = "123",
                     DataPagto = depositDetail.Date,
                     ValorPagto = depositDetail.Value,
+                    DataRealEfetivacaoPagto = depositDetail.Date,
+                    ValorRealEfetivacaoPagto = depositDetail.Value,
                     Ocorrencias = depositDetail.Status.Occurrence,
+                    NrDocumentoAtribuidoEmpresa = depositDetail.ChaveBuscaUsuario,
+                    NomeFavorecido = depositDetail.Nome,
                 });
             }
             lstLotes.Add(retFileLote);

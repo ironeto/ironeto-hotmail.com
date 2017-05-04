@@ -177,7 +177,6 @@ namespace CNAB240BB.ReturnFile
                         lineBuilder.Append(FormatField(true, segA.TipoMoeda, 3, "BRL"));
                         lineBuilder.Append(FormatField(false, segA.QtdadeMoeda.ToString("0.00000", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
                         lineBuilder.Append(FormatField(false, segA.ValorPagto.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
-                        lineBuilder.Append(FormatField(true, segA.TipoMoeda, 3, "BRL"));
                         lineBuilder.Append(FormatField(true, segA.NumeroAtribuidoBanco, 20));
                         lineBuilder.Append(FormatField(false, segA.DataRealEfetivacaoPagto.ToString("ddMMyyyy"), 8));
                         lineBuilder.Append(FormatField(false, segA.ValorRealEfetivacaoPagto.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
