@@ -53,7 +53,7 @@ namespace CNAB240Tester
                     Estado = "SP",
                     Ocorrencias = CNAB240File.Status.Occurrence,
                 },
-                SegmentoJ = new List<CNAB240ReturnFileSegmentoJ>(),
+                SegmentoA = new List<CNAB240ReturnFileSegmentoA>(),
 
                 //Fill Trailer Lote
                 TrailerLote = new CNAB240ReturnFileTrailerLote()
@@ -66,23 +66,12 @@ namespace CNAB240Tester
             foreach (var depositDetail in CNAB240File.DepositDetails)
             {
                 //Fill Segmento J
-                retFileLote.SegmentoJ.Add(new CNAB240ReturnFileSegmentoJ()
+                retFileLote.SegmentoA.Add(new CNAB240ReturnFileSegmentoA()
                 {
                     Lote = Lote.ToString(),
                     Banco = "123",
-                    CodigoMoedaDadosTitulo = "1",
-                    DV = "1",
-                    Valor = depositDetail.Value,
-                    CampoLivre = depositDetail.ChaveBuscaUsuario,
-                    NomeCedente = depositDetail.Nome,
-                    DataVencto = depositDetail.Date,                    
-                    ValorTitulo = depositDetail.Value,                    
-                    Desconto = 0,
-                    Acrescimos = 0,
                     DataPagto = depositDetail.Date,
                     ValorPagto = depositDetail.Value,
-                    Referencia = "123123",
-                    NossoNumero = "1234567890",
                     Ocorrencias = depositDetail.Status.Occurrence,
                 });
             }

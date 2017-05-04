@@ -9,7 +9,7 @@ namespace CNAB240BB.ReturnFile
     public class CNAB240ReturnFileLote
     {
         public CNAB240ReturnFileHeaderLote HeaderLote { get; set; }
-        public List<CNAB240ReturnFileSegmentoJ> SegmentoJ { get; set; }
+        public List<CNAB240ReturnFileSegmentoA> SegmentoA { get; set; }
         public CNAB240ReturnFileTrailerLote TrailerLote { get; set; }
 
 

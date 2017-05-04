@@ -104,7 +104,7 @@ namespace CNAB240BB.ReturnFile
                     //lineBuilder.Clear();
 
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Banco, 3, "001"));
-                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Lote, 4, "0000"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.Lote, 4, "0001"));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Registro, 1, "1"));
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.TipoOpercao, 1, "C"));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.TipoServico, 1, "30"));
@@ -143,43 +143,52 @@ namespace CNAB240BB.ReturnFile
                     hLote.TrailerLote.Valor = 0;
                     hLote.TrailerLote.QtdeMoedas = 0;
 
-                    foreach (var segJ in hLote.SegmentoJ)
+                    foreach (var segA in hLote.SegmentoA)
                     {
                         qtdeRegistros_0_1_3_5_9++;
                         //lineBuilder.Clear();
                         NrRegistro++;
-                        segJ.NrRegistro = NrRegistro;
-                        hLote.TrailerLote.Valor += segJ.ValorPagto;
-                        hLote.TrailerLote.QtdeMoedas += segJ.QtdadeMoeda;
+                        segA.Lote = hLote.HeaderLote.Lote;
+                        segA.NrRegistro = NrRegistro;
+                        hLote.TrailerLote.Valor += segA.ValorPagto;
+                        hLote.TrailerLote.QtdeMoedas += segA.QtdadeMoeda;
 
                         //Dados de Controle
-                        lineBuilder.Append(FormatField(false, segJ.Banco, 3, "001"));
-                        lineBuilder.Append(FormatField(false, segJ.Lote, 4, "0000"));
-                        lineBuilder.Append(FormatField(false, segJ.Registro, 1, "3"));
-                        lineBuilder.Append(FormatField(false, segJ.NrRegistro.ToString(), 5));
-                        lineBuilder.Append(FormatField(true, segJ.Segmento, 1,"J"));
-                        lineBuilder.Append(FormatField(true, segJ.TipoMovto, 1, "0"));
-                        lineBuilder.Append(FormatField(true, segJ.CodMovimento, 2, "00"));
+                        lineBuilder.Append(FormatField(false, segA.Banco, 3, "001"));
+                        lineBuilder.Append(FormatField(false, segA.Lote, 4, "0000"));
+                        lineBuilder.Append(FormatField(false, segA.Registro, 1, "3"));
+                        lineBuilder.Append(FormatField(false, segA.NrRegistro.ToString(), 5));
+                        lineBuilder.Append(FormatField(true, segA.Segmento, 1,"A"));
+                        lineBuilder.Append(FormatField(false, segA.TipoMovto, 1, "0"));
+                        lineBuilder.Append(FormatField(false, segA.CodMovimento, 2, "00"));
+                        lineBuilder.Append(FormatField(false, segA.CodCamaraCentralizadora, 3, "000"));
+                        
 
                         //Dados de Titulo
-                        lineBuilder.Append(FormatField(true, segJ.Banco, 3));
-                        lineBuilder.Append(FormatField(true, segJ.CodigoMoedaDadosTitulo, 1));
-                        lineBuilder.Append(FormatField(true, segJ.DV, 1));
-                        lineBuilder.Append(FormatField(true, segJ.Valor.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 14));
-                        lineBuilder.Append(FormatField(false, segJ.CampoLivre, 25));
-                        lineBuilder.Append(FormatField(true, segJ.NomeCedente, 30));
-                        lineBuilder.Append(FormatField(false, segJ.DataVencto.ToString("ddMMyyyy"), 8));
-                        lineBuilder.Append(FormatField(false, segJ.ValorTitulo.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
-                        lineBuilder.Append(FormatField(false, segJ.Desconto.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
-                        lineBuilder.Append(FormatField(false, segJ.Acrescimos.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
-                        lineBuilder.Append(FormatField(false, segJ.DataPagto.ToString("ddMMyyyy"), 8));
-                        lineBuilder.Append(FormatField(false, segJ.ValorPagto.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
-                        lineBuilder.Append(FormatField(false, segJ.QtdadeMoeda.ToString("0.00000", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
-                        lineBuilder.Append(FormatField(true, segJ.Referencia, 20));
-                        lineBuilder.Append(FormatField(true, segJ.NossoNumero, 20));
-                        lineBuilder.Append(FormatField(false, segJ.CodigoMoedaDadosTitulo2, 2, "09"));
-                        lineBuilder.Append(FormatField(true, segJ.CNABDadosTitulo, 6));
-                        lineBuilder.Append(FormatField(true, segJ.Ocorrencias, 10));
+                        lineBuilder.Append(FormatField(false, segA.BancoFavorecido, 3));
+                        lineBuilder.Append(FormatField(false, segA.AgenciaMantenedoraFavorecido, 5));
+                        lineBuilder.Append(FormatField(true, segA.DVAgenciaMantenedoraFavorecido, 1));
+                        lineBuilder.Append(FormatField(false, segA.ContaCorrente, 12));
+                        lineBuilder.Append(FormatField(true, segA.DVContaCorrente, 1));
+                        lineBuilder.Append(FormatField(true, segA.DVAgenciaConta, 1));
+                        lineBuilder.Append(FormatField(true, segA.NomeFavorecido, 30));
+                        lineBuilder.Append(FormatField(true, segA.NrDocumentoAtribuidoEmpresa, 20));
+                        lineBuilder.Append(FormatField(false, segA.DataPagto.ToString("ddMMyyyy"), 8));
+                        lineBuilder.Append(FormatField(true, segA.TipoMoeda, 3, "BRL"));
+                        lineBuilder.Append(FormatField(false, segA.QtdadeMoeda.ToString("0.00000", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
+                        lineBuilder.Append(FormatField(false, segA.ValorPagto.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
+                        lineBuilder.Append(FormatField(true, segA.TipoMoeda, 3, "BRL"));
+                        lineBuilder.Append(FormatField(true, segA.NumeroAtribuidoBanco, 20));
+                        lineBuilder.Append(FormatField(false, segA.DataRealEfetivacaoPagto.ToString("ddMMyyyy"), 8));
+                        lineBuilder.Append(FormatField(false, segA.ValorRealEfetivacaoPagto.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture).Replace(".", string.Empty), 15));
+                        lineBuilder.Append(FormatField(true, segA.OutrasInformacoes, 40));
+
+                        lineBuilder.Append(FormatField(true, segA.ComplementoTipoServico, 2));
+                        lineBuilder.Append(FormatField(true, segA.CodFinalidadeTED, 5));
+                        lineBuilder.Append(FormatField(true, segA.ComplementoFinalidadePagto, 2));
+                        lineBuilder.Append(FormatField(true, segA.FebrabanCnab, 3));
+                        lineBuilder.Append(FormatField(false, segA.AvisoAoFavorecido, 1));
+                        lineBuilder.Append(FormatField(true, segA.Ocorrencias, 10));
                         lineBuilder.AppendLine();
                         //gravaLinha.WriteLine(lineBuilder);
                     }
