@@ -46,7 +46,7 @@ namespace CNAB240Tester
                     Nome = "Alvaro Augusto de Marco Neto ME",
                     Logradouro = "Rua Rudi Schaly",
                     NumeroLogradouro = "146",
-                    ComplementoLogradouro = "",
+                    CasaAptoSala = "",
                     Cidade = "São Paulo",
                     CEP = "05101",
                     ComplemCEP = "060",

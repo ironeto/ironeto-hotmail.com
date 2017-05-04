@@ -103,41 +103,37 @@ namespace CNAB240BB.ReturnFile
 
                     //lineBuilder.Clear();
 
-                    //Dados de Controle
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Banco, 3, "001"));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Lote, 4, "0000"));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Registro, 1, "1"));
-
-                    //Dados de Serviço
-                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Operacao, 1,"T"));
-                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.TipoInscricao, 2, "98"));
-                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.FormaLancam, 2, "30"));
-                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.LayoutDoLote, 3, "030"));
-                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.CNABDadosServico, 1));
-
-                    //Dados da Empresa
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.TipoOpercao, 1, "C"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.TipoServico, 1, "30"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.VersaoArquivoLote, 3, "042"));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.FebrabanCnab, 1));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.TipoInscricao, 1, "2"));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.Inscricao, 14));
-                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Convenio, 20));
-
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Convenio, 20, "9999999990126"));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.NrConvenioPagamento, 9));
+                    lineBuilder.Append(FormatField(false, hLote.HeaderLote.BB2, 4, "0126"));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.BB3, 5));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.BB4, 2));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.CodAgencia, 5));
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.DVAgencia, 1));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.NumeroConta, 12));
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.DVConta, 1));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.DV, 1, "0"));
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.Nome, 30));
-
-
-                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Informacao, 40));
-                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Logradouro, 40));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Mensagem1, 40));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.Logradouro, 30));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.NumeroLogradouro, 5));
-                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.ComplementoLogradouro, 18));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.CasaAptoSala, 15));
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.Cidade, 20));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.CEP, 5));
                     lineBuilder.Append(FormatField(false, hLote.HeaderLote.ComplemCEP, 3));
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.Estado, 2));
-                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.CNABDadosEmpresa, 8));
+                    lineBuilder.Append(FormatField(true, hLote.HeaderLote.FebrabanCnab2, 8));
                     lineBuilder.Append(FormatField(true, hLote.HeaderLote.Ocorrencias, 10));
+
                     lineBuilder.AppendLine();
                     //gravaLinha.WriteLine(lineBuilder);
                     #endregion
